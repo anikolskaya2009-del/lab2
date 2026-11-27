@@ -9,20 +9,15 @@ FROM laboratorie l
 JOIN departments d ON l.department_id = d.id
 WHERE d.graduating_department = TRUE;
 -- Задание 3. Создать таблицу, содержащую данные 1 запроса с указанием кафедр, к которым относятся лаборатории, и данных из таблицы «лаборатории».
-DROP TABLE IF EXISTS lab_report;
-
-CREATE TABLE lab_report AS
+-- Задание 3
 SELECT
     l.*,
     d.department_name
 FROM laboratorie l
-LEFT JOIN departments d
+JOIN departments d
     ON l.department_id = d.id
 WHERE l.laboratory_name ILIKE '%компьютер%'
   AND (l.manager IS NULL OR TRIM(l.manager) = '');
-
--- Проверка
-SELECT * FROM lab_report;
 -- Задание 4. Добавить в созданную таблицу все лаборатории кафедр, названия которых начинаются на согласные буквы.
 INSERT INTO lab_report
 SELECT DISTINCT l.*, d.department_name
