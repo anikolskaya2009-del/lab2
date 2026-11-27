@@ -13,26 +13,15 @@ DROP TABLE IF EXISTS lab_report;
 
 CREATE TABLE lab_report AS
 SELECT
-    l.id,
-    l.laboratory_name,
-    l.activity_type,
-    l.manager,
-    l.workplaces,
-    l.project_equipment,
-    l.department_id,
+    l.*,
     d.department_name
 FROM laboratorie l
-JOIN departments d ON l.department_id = d.id
+LEFT JOIN departments d
+    ON l.department_id = d.id
 WHERE l.laboratory_name ILIKE '%компьютер%'
   AND (l.manager IS NULL OR TRIM(l.manager) = '');
 
-ALTER TABLE lab_report
-ADD PRIMARY KEY (id);
-
 -- Проверка
-SELECT * FROM lab_report;
-
-
 SELECT * FROM lab_report;
 -- Задание 4. Добавить в созданную таблицу все лаборатории кафедр, названия которых начинаются на согласные буквы.
 INSERT INTO lab_report
